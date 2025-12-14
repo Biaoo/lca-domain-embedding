@@ -14,6 +14,7 @@ Generic embedding models work well in open domains, but LCA retrieval often requ
 ## Comparison Setup (high level)
 
 Models compared:
+
 - `raw`: `Qwen3-Embedding-0.6B` (generic baseline)
 - `ft`: `Qwen3-Embedding-0.6B` fine-tuned on LCA data
 - Cloud baselines: `qwen3-embedding-8b` / `qwen3-embedding-4b`, `bge-m3`, `codestral-embed-2505`
