@@ -8,6 +8,7 @@ Generic embedding models work well in open domains, but LCA retrieval often requ
 
 ## Data Scale (this experiment)
 
+- Data source: TianGong LCA data. The original records are in the Tidas structured format (process/flow plus metadata fields), and are converted into a retrieval-friendly text form for building the evaluation set.
 - Train: 17,037 query-doc pairs
 - Eval: 1,893 queries / 3,786 corpus docs / 1,893 qrels
 
