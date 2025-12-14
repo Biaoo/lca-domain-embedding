@@ -1,0 +1,39 @@
+# Scripts Layout
+
+## pipeline/
+
+端到端链路（数据 -> 训练 -> 缓存 -> 评测）：
+
+- 01_generate_markdown.py
+- 02_generate_queries.py / 02_generate_single.py
+- 03_prepare_ft_data.py
+- 04_finetune_st.py / 04_finetune_st.sh
+- 05_cache_embeddings.py
+- 06_evaluate_cached.py
+- 07_evaluate_st.py
+
+## reports/
+
+报告生成：
+
+- generate_report_html.py
+- generate_cached_eval_report.py
+- generate_eval_results_report.py
+
+## tools/
+
+辅助工具：
+
+- apply_hard_negatives.py, mine_hard_negatives.py
+- evaluate_similarity_gaps.py, compare_pair_similarity.py
+- check_bf16_env.py, download_model.py, export_supabase_json_ordered.py
+- upload_hf_model.py, upload_ollama_model.sh, convert_to_gguf.sh
+
+## legacy/
+
+旧入口（评估/训练），逐步淘汰：
+
+- evaluate.py
+- finetune.sh
+
+根目录保留 scripts_overview.md 供概览；后续可在 docs/PIPELINE.md 补充端到端命令示例。
