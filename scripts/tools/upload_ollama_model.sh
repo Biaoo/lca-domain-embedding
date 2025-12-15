@@ -4,7 +4,8 @@
 
 set -euo pipefail
 
-REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 DEFAULT_GGUF="$REPO_ROOT/data/output/gguf/lca-qwen3-st-finetuned-f16.gguf"
 FALLBACK_GGUF="$REPO_ROOT/data/output/gguf/lca-qwen3-st-finetuned-f16.gguf"
 

@@ -3,7 +3,8 @@
 
 set -euo pipefail
 
-REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 LLAMA_DIR="${LLAMA_DIR:-$REPO_ROOT/../llama.cpp}"
 MODEL_DIR="${MODEL_DIR:-$REPO_ROOT/data/output/lca-qwen3-st-finetuned}"
 MODEL_ID="${MODEL_ID:-}"  # Optional HF repo id to download when MODEL_DIR is empty
