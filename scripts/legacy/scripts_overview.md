@@ -256,10 +256,10 @@ LLAMA_DIR=../llama.cpp MODEL_DIR=data/output/lca-bge-m3-finetuned \
 示例命令：  
 
 ```bash
-GGUF_PATH=data/output/gguf/lca-qwen3-st-finetuned-f16.gguf \
-MODEL_NAME=lca-qwen3-ft \
-PUSH_TARGET=BiaoLuo/lca-qwen3-ft \
-bash scripts/upload_ollama_model.sh
+GGUF_PATH=data/output/gguf/lca-qwen3-embedding-f16.gguf \
+MODEL_NAME=lca-qwen3-embedding \
+PUSH_TARGET=BiaoLuo/lca-qwen3-embedding \
+bash scripts/tools/upload_ollama_model.sh
 ```
 
 ### 5. 其他辅助脚本

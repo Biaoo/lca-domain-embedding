@@ -29,6 +29,39 @@
 
 - 相对 `raw`，`ft` 显著提升：NDCG@10 +31.2%，Recall@10 +25.7%，MRR@10 +33.5%；Recall@100 +11.5%。
 
+## 已发布模型与使用方式
+
+### Hugging Face（SentenceTransformers）
+
+- 模型地址：https://huggingface.co/BIaoo/lca-qwen3-embedding
+
+```bash
+pip install -U sentence-transformers
+```
+
+```python
+from sentence_transformers import SentenceTransformer
+
+model = SentenceTransformer("BIaoo/lca-qwen3-embedding")
+emb = model.encode(["wood residue gasification heat recovery"], prompt_name="query", normalize_embeddings=True)
+print(emb.shape)
+```
+
+### Ollama
+
+- 模型地址：https://ollama.com/BiaoLuo/lca-qwen3-embedding
+
+```bash
+ollama pull BiaoLuo/lca-qwen3-embedding
+```
+
+通过本地 Ollama Server API 获取 embedding：
+
+```bash
+curl http://localhost:11434/api/embeddings \
+  -d '{"model":"BiaoLuo/lca-qwen3-embedding","prompt":"wood residue gasification heat recovery"}'
+```
+
 ## 结论
 
 在本次 LCA 检索评测中，领域化向量微调相对通用基线在排序质量与覆盖度上都带来了明确收益，表明“通用向量 + 领域对齐”是专业检索场景的高性价比路径。
@@ -41,5 +74,5 @@
 
 - arXiv：TBA
 - 引用格式：TBA
-- Hugging Face：TBA
-- Ollama：TBA
+- Hugging Face：https://huggingface.co/BIaoo/lca-qwen3-embedding
+- Ollama：https://ollama.com/BiaoLuo/lca-qwen3-embedding
