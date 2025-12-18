@@ -33,7 +33,7 @@
 
 ### Hugging Face（SentenceTransformers）
 
-- 模型地址：https://huggingface.co/BIaoo/lca-qwen3-embedding
+- 模型地址：<https://huggingface.co/BIaoo/lca-qwen3-embedding>
 
 ```bash
 pip install -U sentence-transformers
@@ -49,7 +49,7 @@ print(emb.shape)
 
 ### Ollama
 
-- 模型地址：https://ollama.com/BiaoLuo/lca-qwen3-embedding
+- 模型地址：<https://ollama.com/BiaoLuo/lca-qwen3-embedding>
 
 ```bash
 ollama pull BiaoLuo/lca-qwen3-embedding
@@ -60,6 +60,71 @@ ollama pull BiaoLuo/lca-qwen3-embedding
 ```bash
 curl http://localhost:11434/api/embeddings \
   -d '{"model":"BiaoLuo/lca-qwen3-embedding","prompt":"wood residue gasification heat recovery"}'
+```
+
+## 可视化（Embedding Atlas）
+
+Embedding Atlas（<https://apple.github.io/embedding-atlas）可以用来交互式查看> embedding 的结构、聚类、最近邻与元数据分布。结合本项目，推荐两种用法：
+
+### 方案 A：直接从文本计算 embedding（最省事）
+
+对评测集的 query+corpus 直接跑 Embedding Atlas，并指定你的微调模型作为 `--model`：
+
+```bash
+pip install -U embedding-atlas
+embedding-atlas data/ft_data/test_queries.jsonl data/ft_data/corpus.jsonl \
+  --text text \
+  --model BIaoo/lca-qwen3-embedding \
+  --trust-remote-code \
+  --umap-metric cosine \
+  --umap-random-state 42
+```
+
+提示：同时加载多个输入时，Embedding Atlas 会自动加一列 `FILE_NAME`，可用它筛选 query / corpus 两类点。
+
+### 方案 B：复用本项目缓存的 embedding（对比 raw vs ft 更方便）
+
+1) 先按评测管线缓存 embedding（见 `scripts/pipeline/05_cache_embeddings.py`）  
+2) 导出为 Embedding Atlas 可读的数据集（包含 `vector_raw` / `vector_ft` 等列）：
+
+```bash
+.venv/bin/python scripts/tools/export_embedding_atlas_dataset.py \
+  --data_dir data/ft_data \
+  --cache_dir data/eval_cache \
+  --model ft \
+  --out data/output/embedding_atlas/lca_eval.parquet
+```
+
+然后分别选择要可视化的向量列启动 Embedding Atlas：
+
+```bash
+embedding-atlas data/output/embedding_atlas/lca_eval.parquet --vector vector_ft --text text --umap-metric cosine --umap-random-state 42
+embedding-atlas data/output/embedding_atlas/lca_eval.parquet --vector vector_raw --text text --umap-metric cosine --umap-random-state 42
+```
+
+### 方案 C：对 Supabase 导出的 markdown 先预计算向量（大规模数据更省时）
+
+适用于 `data/supabase_exports_markdown`（flows/processs）。先离线缓存 embedding，再导出带 `vector_*` 列的 parquet 给 Embedding Atlas 使用：
+
+```bash
+.venv/bin/python scripts/tools/cache_markdown_embeddings.py \
+  --input_dir data/supabase_exports_markdown \
+  --subset both \
+  --text_mode plain \
+  --model ft=local:data/output/lca-qwen3-st-finetuned \
+  --output_dir data/embed_cache/supabase_markdown \
+  --device cpu \
+  --batch_size 64
+
+.venv/bin/python scripts/tools/export_embedding_atlas_markdown_dir.py \
+  --input_dir data/supabase_exports_markdown \
+  --subset both \
+  --text_mode plain \
+  --vector_cache_dir data/embed_cache/supabase_markdown \
+  --vector_model ft \
+  --out data/output/embedding_atlas/supabase_markdown_ft.parquet
+
+embedding-atlas data/output/embedding_atlas/supabase_markdown_ft.parquet --vector vector_ft --text text --umap-metric cosine --umap-random-state 42
 ```
 
 ## 结论
@@ -74,5 +139,5 @@ curl http://localhost:11434/api/embeddings \
 
 - arXiv：TBA
 - 引用格式：TBA
-- Hugging Face：https://huggingface.co/BIaoo/lca-qwen3-embedding
-- Ollama：https://ollama.com/BiaoLuo/lca-qwen3-embedding
+- Hugging Face：<https://huggingface.co/BIaoo/lca-qwen3-embedding>
+- Ollama：<https://ollama.com/BiaoLuo/lca-qwen3-embedding>

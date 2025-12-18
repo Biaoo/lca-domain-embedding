@@ -25,6 +25,9 @@
 辅助工具：
 
 - apply_hard_negatives.py, mine_hard_negatives.py
+- export_embedding_atlas_dataset.py（导出 Embedding Atlas 可视化数据集）
+- export_embedding_atlas_markdown_dir.py（将 Supabase 导出的 markdown 目录打包为 Embedding Atlas 数据集）
+- cache_markdown_embeddings.py（为 Supabase markdown 预计算并缓存 embedding 向量）
 - evaluate_similarity_gaps.py, compare_pair_similarity.py
 - check_bf16_env.py, download_model.py, export_supabase_json_ordered.py
 - upload_hf_model.py, upload_ollama_model.sh, convert_to_gguf.sh

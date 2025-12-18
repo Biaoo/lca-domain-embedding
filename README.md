@@ -33,7 +33,7 @@ Models compared:
 
 ### Hugging Face (SentenceTransformers)
 
-- Model: https://huggingface.co/BIaoo/lca-qwen3-embedding
+- Model: <https://huggingface.co/BIaoo/lca-qwen3-embedding>
 
 ```bash
 pip install -U sentence-transformers
@@ -49,7 +49,7 @@ print(emb.shape)
 
 ### Ollama
 
-- Model: https://ollama.com/BiaoLuo/lca-qwen3-embedding
+- Model: <https://ollama.com/BiaoLuo/lca-qwen3-embedding>
 
 ```bash
 ollama pull BiaoLuo/lca-qwen3-embedding
@@ -60,6 +60,46 @@ Get an embedding via the local Ollama server API:
 ```bash
 curl http://localhost:11434/api/embeddings \
   -d '{"model":"BiaoLuo/lca-qwen3-embedding","prompt":"wood residue gasification heat recovery"}'
+```
+
+## Visualization (Embedding Atlas)
+
+Embedding Atlas (<https://apple.github.io/embedding-atlas>) provides interactive embedding visualization: clustering, labels, cross-filtering on metadata, and nearest-neighbor search. In this repo there are two practical ways to use it:
+
+### Option A: Compute embeddings from text (simplest)
+
+Run Embedding Atlas on the eval queries + corpus and point it at your fine-tuned model:
+
+```bash
+pip install -U embedding-atlas
+embedding-atlas data/ft_data/test_queries.jsonl data/ft_data/corpus.jsonl \
+  --text text \
+  --model BIaoo/lca-qwen3-embedding \
+  --trust-remote-code \
+  --umap-metric cosine \
+  --umap-random-state 42
+```
+
+Tip: when loading multiple inputs, Embedding Atlas automatically adds a `FILE_NAME` column so you can filter query vs corpus points.
+
+### Option B: Reuse cached embeddings (easy raw vs ft comparison)
+
+1) Cache embeddings via `scripts/pipeline/05_cache_embeddings.py`  
+2) Export an Embedding Atlas dataset with `vector_raw` / `vector_ft` columns:
+
+```bash
+.venv/bin/python scripts/tools/export_embedding_atlas_dataset.py \
+  --data_dir data/ft_data \
+  --cache_dir data/eval_cache \
+  --model raw --model ft \
+  --out data/output/embedding_atlas/lca_eval.parquet
+```
+
+Then launch Embedding Atlas with the vector column you want:
+
+```bash
+embedding-atlas data/output/embedding_atlas/lca_eval.parquet --vector vector_ft --text text --umap-metric cosine --umap-random-state 42
+embedding-atlas data/output/embedding_atlas/lca_eval.parquet --vector vector_raw --text text --umap-metric cosine --umap-random-state 42
 ```
 
 ## Conclusion
@@ -74,5 +114,5 @@ On this LCA retrieval evaluation, domain embedding fine-tuning yields clear gain
 
 - arXiv: TBA
 - Citation: TBA
-- Hugging Face: https://huggingface.co/BIaoo/lca-qwen3-embedding
-- Ollama: https://ollama.com/BiaoLuo/lca-qwen3-embedding
+- Hugging Face: <https://huggingface.co/BIaoo/lca-qwen3-embedding>
+- Ollama: <https://ollama.com/BiaoLuo/lca-qwen3-embedding>
