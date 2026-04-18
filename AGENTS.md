@@ -78,6 +78,7 @@ Route those tasks to:
 
 ## Runtime Facts
 
+- Repo-local AI-doc maintenance is enforced by `.github/workflows/ai-doc-lint.yml` using the vendored `.github/scripts/ai-doc-lint.*` files.
 - Python baseline: `>=3.12`
 - Package/dependency manager: `uv`
 - This repo currently has no single checked-in green-bar test wrapper like `pytest` or `make check`; validation is change-scoped and should use the narrowest safe pipeline or tool command that proves the touched stage
