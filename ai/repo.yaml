@@ -1,0 +1,124 @@
+{
+  "version": 1,
+  "lastReviewedAt": "2026-04-18",
+  "lastReviewedCommit": "417ed35984795bd8436ee0b42ad3cbdf1a460573",
+  "repo": {
+    "id": "domain-embedding",
+    "path": "lca-domain-embedding",
+    "canonicalRepo": "Biaoo/lca-domain-embedding",
+    "purpose": "LCA retrieval embedding fine-tuning, evaluation, and model packaging repository.",
+    "entryDoc": "AGENTS.md",
+    "docImpactDoc": "ai/doc-impact.yaml",
+    "readmeDoc": "README.md",
+    "defaultBranch": "main",
+    "dailyTrunk": "main",
+    "routinePrBase": "main",
+    "branchModel": "M1",
+    "workspaceIntegrationRequired": true,
+    "rootIntegrationRule": "lca-workspace/main may bump merged main-branch embedding snapshots when the workspace intends to ship or reference the updated embedding assets.",
+    "trackedBy": {
+      "workspaceParentIssue": "https://github.com/tiangong-lca/workspace/issues/73",
+      "repoIssue": "https://github.com/Biaoo/lca-domain-embedding/issues/1"
+    },
+    "sourceOfTruth": {
+      "stableManualEditPaths": [
+        {
+          "path": "pyproject.toml",
+          "role": "Python runtime and dependency baseline"
+        },
+        {
+          "path": "src/**",
+          "role": "reusable modules for preprocessing, embedding, evaluation, and reporting"
+        },
+        {
+          "path": "scripts/pipeline/**",
+          "role": "end-to-end data-to-train-to-eval pipeline entrypoints"
+        },
+        {
+          "path": "scripts/tools/**",
+          "role": "auxiliary tools for atlas export, model packaging, environment checks, and analysis"
+        },
+        {
+          "path": "config/**",
+          "role": "experiment configuration inputs"
+        },
+        {
+          "path": "data/**",
+          "role": "checked-in evaluation and experiment data assets"
+        },
+        {
+          "path": "analysis/**",
+          "role": "checked-in analysis outputs and notes"
+        },
+        {
+          "path": "report.md",
+          "role": "English experiment summary"
+        },
+        {
+          "path": "report.ZH.md",
+          "role": "Chinese experiment summary"
+        },
+        {
+          "path": "TODO.md",
+          "role": "durable experiment backlog"
+        }
+      ],
+      "nonOwnerBoundaries": [
+        {
+          "repo": "tiangong-lca-mcp",
+          "doesNotOwn": [
+            "MCP transports",
+            "MCP tool registration",
+            "HTTP auth surfaces"
+          ]
+        },
+        {
+          "repo": "lca-workspace",
+          "doesNotOwn": [
+            "root integration state",
+            "submodule pointer updates"
+          ]
+        }
+      ]
+    },
+    "taskHotspots": [
+      {
+        "topic": "training and evaluation pipeline stages",
+        "paths": [
+          "scripts/pipeline/**",
+          "src/prep/**",
+          "src/train/**",
+          "src/eval/**",
+          "src/report/**"
+        ]
+      },
+      {
+        "topic": "embedding export, similarity analysis, and model packaging",
+        "paths": [
+          "scripts/tools/**",
+          "src/embed/**",
+          "src/utils/**",
+          "analysis/**"
+        ]
+      },
+      {
+        "topic": "experiment configuration and dataset assumptions",
+        "paths": [
+          "pyproject.toml",
+          "config/**",
+          "data/**",
+          "README.md",
+          "report.md"
+        ]
+      }
+    ],
+    "validation": {
+      "baselineLocalCommands": [],
+      "notes": [
+        "This repo currently has no single checked-in green-bar wrapper such as pytest or make check.",
+        "Validate the narrowest safe touched pipeline stage or helper, for example a --help path or a stage-specific script invocation, and record that proof in the PR.",
+        "AI-doc changes should still run the root warning-only ai-doc-lint."
+      ]
+    }
+  }
+}
