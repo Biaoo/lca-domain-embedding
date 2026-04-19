@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "lastReviewedAt": "2026-04-18",
+  "lastReviewedCommit": "417ed35984795bd8436ee0b42ad3cbdf1a460573",
+  "rules": [
+    {
+      "id": "domain-embedding-bootstrap-contract",
+      "scope": "repo",
+      "repo": "domain-embedding",
+      "triggers": [
+        {
+          "path": "AGENTS.md",
+          "kind": "doc-contract"
+        },
+        {
+          "path": "README.md",
+          "kind": "doc-entry"
+        },
+        {
+          "path": "README.ZH.md",
+          "kind": "doc-entry"
+        },
+        {
+          "path": "TODO.md",
+          "kind": "doc-backlog"
+        },
+        {
+          "path": "ai/**",
+          "kind": "doc-ai-layer"
+        }
+      ],
+      "requiredDocs": [
+        {
+          "path": "AGENTS.md",
+          "mode": "review_or_update"
+        },
+        {
+          "path": "ai/repo.yaml",
+          "mode": "review_or_update"
+        },
+        {
+          "path": "ai/doc-impact.yaml",
+          "mode": "review_or_update"
+        }
+      ],
+      "reason": "Entry guidance, repo facts, and review-trigger rules must stay aligned."
+    },
+    {
+      "id": "domain-embedding-pipeline-contract",
+      "scope": "repo",
+      "repo": "domain-embedding",
+      "triggers": [
+        {
+          "path": "pyproject.toml",
+          "kind": "runtime-config"
+        },
+        {
+          "path": "src/**",
+          "kind": "python-module"
+        },
+        {
+          "path": "scripts/**",
+          "kind": "pipeline-script"
+        },
+        {
+          "path": "config/**",
+          "kind": "experiment-config"
+        }
+      ],
+      "requiredDocs": [
+        {
+          "path": "AGENTS.md",
+          "mode": "review_or_update"
+        },
+        {
+          "path": "ai/repo.yaml",
+          "mode": "review_or_update"
+        },
+        {
+          "path": "ai/doc-impact.yaml",
+          "mode": "review_or_update"
+        }
+      ],
+      "reason": "Pipeline stages, runtime dependencies, and config changes alter the repo's executable contract and should refresh the AI bootstrap docs."
+    },
+    {
+      "id": "domain-embedding-data-and-report-contract",
+      "scope": "repo",
+      "repo": "domain-embedding",
+      "triggers": [
+        {
+          "path": "data/**",
+          "kind": "experiment-data"
+        },
+        {
+          "path": "analysis/**",
+          "kind": "analysis-output"
+        },
+        {
+          "path": "report.md",
+          "kind": "experiment-report"
+        },
+        {
+          "path": "report.ZH.md",
+          "kind": "experiment-report"
+        }
+      ],
+      "requiredDocs": [
+        {
+          "path": "AGENTS.md",
+          "mode": "review_or_update"
+        },
+        {
+          "path": "ai/repo.yaml",
+          "mode": "review_or_update"
+        },
+        {
+          "path": "ai/doc-impact.yaml",
+          "mode": "review_or_update"
+        }
+      ],
+      "reason": "Checked-in data, analysis artifacts, and published summaries change what this experiment repo actually delivers."
+    },
+    {
+      "id": "domain-embedding-ai-doc-maintenance-contract",
+      "scope": "repo",
+      "repo": "domain-embedding",
+      "triggers": [
+        {
+          "path": ".github/workflows/ai-doc-lint.yml",
+          "kind": "automation"
+        },
+        {
+          "path": ".github/scripts/ai-doc-lint.mjs",
+          "kind": "automation"
+        },
+        {
+          "path": ".github/scripts/ai-doc-lint.test.mjs",
+          "kind": "automation"
+        }
+      ],
+      "requiredDocs": [
+        {
+          "path": "AGENTS.md",
+          "mode": "review_or_update"
+        },
+        {
+          "path": "ai/repo.yaml",
+          "mode": "review_or_update"
+        },
+        {
+          "path": "ai/doc-impact.yaml",
+          "mode": "review_or_update"
+        }
+      ],
+      "reason": "Repo-local AI doc maintenance automation changes alter the maintenance gate and should refresh the AI contract docs."
+    }
+  ]
+}
