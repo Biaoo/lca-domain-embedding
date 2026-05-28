@@ -2,6 +2,11 @@ name: ai-doc-lint
 
 on:
   workflow_dispatch:
+    inputs:
+      base_ref:
+        description: Base ref for the manual ai-doc comparison.
+        required: false
+        default: origin/main
 
 permissions:
   contents: read
@@ -16,8 +21,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Fetch main
-        run: git fetch --force origin +refs/heads/main:refs/remotes/origin/main
+      - name: Fetch branches
+        run: git fetch --force origin '+refs/heads/*:refs/remotes/origin/*'
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -28,4 +33,6 @@ jobs:
         run: node --test .github/scripts/ai-doc-lint.test.mjs
 
       - name: Run local ai-doc lint gate
-        run: scripts/ai-doc-lint-gate.sh --base origin/main
+        env:
+          BASE_REF: ${{ inputs.base_ref }}
+        run: scripts/ai-doc-lint-gate.sh --base "$BASE_REF"
