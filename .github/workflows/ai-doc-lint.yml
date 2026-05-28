@@ -33,4 +33,6 @@ jobs:
         run: node --test .github/scripts/ai-doc-lint.test.mjs
 
       - name: Run local ai-doc lint gate
-        run: scripts/ai-doc-lint-gate.sh --base "${{ inputs.base_ref }}"
+        env:
+          BASE_REF: ${{ inputs.base_ref }}
+        run: scripts/ai-doc-lint-gate.sh --base "$BASE_REF"
