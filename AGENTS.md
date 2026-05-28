@@ -30,7 +30,7 @@ checkPaths:
   - report.md
   - report.ZH.md
 lastReviewedAt: 2026-05-28
-lastReviewedCommit: 5278de61672bf5f570b8dcb1d09e3ec18bd41afe
+lastReviewedCommit: 5bdbd3dad053014f15ad6527fd59fe6fae6a3673
 related:
   - ai/repo.yaml
   - ai/doc-impact.yaml
