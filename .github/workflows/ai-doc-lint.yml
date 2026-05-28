@@ -1,7 +1,7 @@
 name: ai-doc-lint
 
 on:
-  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -16,6 +16,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Fetch main
+        run: git fetch --force origin +refs/heads/main:refs/remotes/origin/main
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -24,9 +27,5 @@ jobs:
       - name: Run ai-doc-lint unit tests
         run: node --test .github/scripts/ai-doc-lint.test.mjs
 
-      - name: Run ai-doc-lint
-        run: |
-          node .github/scripts/ai-doc-lint.mjs \
-            --mode enforce \
-            --base "${{ github.event.pull_request.base.sha }}" \
-            --head "${{ github.event.pull_request.head.sha }}"
+      - name: Run local ai-doc lint gate
+        run: scripts/ai-doc-lint-gate.sh --base origin/main

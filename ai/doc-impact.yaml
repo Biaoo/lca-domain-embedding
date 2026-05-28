@@ -131,6 +131,18 @@
           "kind": "automation"
         },
         {
+          "path": ".githooks/pre-push",
+          "kind": "automation"
+        },
+        {
+          "path": "scripts/ai-doc-lint-gate.sh",
+          "kind": "automation"
+        },
+        {
+          "path": "scripts/install-git-hooks.sh",
+          "kind": "automation"
+        },
+        {
           "path": ".github/scripts/ai-doc-lint.mjs",
           "kind": "automation"
         },

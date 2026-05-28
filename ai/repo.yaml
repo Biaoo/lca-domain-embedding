@@ -117,7 +117,7 @@
       "notes": [
         "This repo currently has no single checked-in green-bar wrapper such as pytest or make check.",
         "Validate the narrowest safe touched pipeline stage or helper, for example a --help path or a stage-specific script invocation, and record that proof in the PR.",
-        "AI-doc changes should still run the repo-local ai-doc-lint workflow or the equivalent local node command."
+        "AI-doc changes should run the local pre-push gate through scripts/ai-doc-lint-gate.sh; the GitHub ai-doc-lint workflow is manual-only fallback."
       ]
     }
   }
