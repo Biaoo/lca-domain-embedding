@@ -29,8 +29,8 @@ checkPaths:
   - analysis/**
   - report.md
   - report.ZH.md
-lastReviewedAt: 2026-04-18
-lastReviewedCommit: 417ed35984795bd8436ee0b42ad3cbdf1a460573
+lastReviewedAt: 2026-05-28
+lastReviewedCommit: 5278de61672bf5f570b8dcb1d09e3ec18bd41afe
 related:
   - ai/repo.yaml
   - ai/doc-impact.yaml
