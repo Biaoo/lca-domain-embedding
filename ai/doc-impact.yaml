@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "lastReviewedAt": "2026-05-28",
-  "lastReviewedCommit": "5bdbd3dad053014f15ad6527fd59fe6fae6a3673",
+  "lastReviewedAt": "2026-08-31",
+  "lastReviewedCommit": "358d26564f322b1012ef0bb5f16cfb34c97a157a",
   "rules": [
     {
       "id": "domain-embedding-bootstrap-contract",
